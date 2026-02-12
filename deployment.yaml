@@ -1,0 +1,24 @@
+# Kubernetes Deployment for Azure (AKS)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hr-resume-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: resume-app
+  template:
+    metadata:
+      labels:
+        app: resume-app
+    spec:
+      containers:
+      - name: resume-app
+        image: yourregistry.azurecr.io/resume-screener:v1
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi" # NLP models need decent RAM
